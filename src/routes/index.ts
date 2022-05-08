@@ -13,9 +13,12 @@ const routes = Router();
 
 routes.post('/signup', signUpController.signUp)
 
-routes.post('/useraddresses', addressController.AddAddress)
 routes.get('/useraddresses/', addressController.getAddresseByUser)
+routes.post('/useraddresses', addressController.AddAddress)
+routes.put('/useraddresses/:id', addressController.UpdateAddresseByUser)
 routes.delete('/useraddresses/:id', addressController.deleteAddresseByUser)
+
+
 //|todo create a controller for this implementation
 
 // routes.get("/getaddress", async (req: Request, res: Response) => {

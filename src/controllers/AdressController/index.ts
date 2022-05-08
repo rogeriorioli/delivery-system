@@ -52,9 +52,7 @@ export default class AddressController {
       await UserAdressSchema.create(address);
       return res.status(200).json({ message: `${namePlace} created` });
     }
-    res
-      .status(400)
-      .json({ message: `${street} exist try another áddress`});
+    res.status(400).json({ message: `${street} exist try another áddress` });
   }
 
   async getAddresseByUser(req: Request, res: Response) {
@@ -62,15 +60,38 @@ export default class AddressController {
     const addresses = await UserAdressSchema.find({ userId: userid });
     res.json(addresses);
   }
-  async deleteAddresseByUser(req: Request, res: Response) {
-    const {id} = req.params
-    await UserAdressSchema.findByIdAndDelete(id).then(success => {
-      res.json({ message: `${id} deleted`, success });
-    }).catch(err => {
-      res.status(400).json({
-        message: `address not exist in our database`,
-        err
-      });      
+
+  async UpdateAddresseByUser(req: Request, res: Response) {
+    const { id } = req.params;
+    const {
+      namePlace,
+      position,
+      reference,
+      street,
+      number,
+      city,
+      state,
+      neighborhood,
+      zipcode,
+    }: UserAddresses = req.body;
+    const addresId = await UserAdressSchema.findByIdAndUpdate(id, {
+      namePlace,
+      position,
+      reference,
+      street,
+      number,
+      city,
+      state,
+      neighborhood,
+      zipcode,
     })
+    res.status(200).json({ message: `${addresId?.namePlace} updated` })
+  }
+
+  async deleteAddresseByUser(req: Request, res: Response) {
+    const { id } = req.params;
+    const addresId = await UserAdressSchema.findById(id) 
+    await UserAdressSchema.findByIdAndDelete(id)
+    res.status(200).json({ message: `${addresId?.namePlace} deleted` })
   }
 }
