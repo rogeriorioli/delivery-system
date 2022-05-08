@@ -8,11 +8,13 @@ const AddressModelSchema = new mongoose.Schema({
   },
   namePlace : {type : String, required : true},
   position: { type: String, required: true },
+  reference : {type : String, required : false},
   street: { type: String, required: true },
   number: { type: String, required: true },
   city: { type: String, required: true },
   state: { type: String, required: true },
   neighborhood: { type: String, required: true },
+  zipcode: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 
