@@ -1,21 +1,10 @@
 import { Request, Response } from "express";
 import UserModelSchema from "../../models/UserModelSchema";
 import UserAdressSchema from "../../models/UserAdressSchema";
-
-type UserAddresses = {
-  userId: string;
-  namePlace: string;
-  position: string;
-  reference: string;
-  street: string;
-  number: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  neighborhood: string;
-};
+import { UserAddresses } from "./types";
 
 export default class AddressController {
+
   async AddAddress(req: Request, res: Response) {
     const { userid } = req.headers;
     const {
@@ -55,7 +44,7 @@ export default class AddressController {
     res.status(400).json({ message: `${street} exist try another áddress` });
   }
 
-  async getAddresseByUser(req: Request, res: Response) {
+  async GetAddresseByUser(req: Request, res: Response) {
     const { userid } = req.headers;
     const addresses = await UserAdressSchema.find({ userId: userid });
     res.json(addresses);
@@ -84,14 +73,15 @@ export default class AddressController {
       state,
       neighborhood,
       zipcode,
-    })
-    res.status(200).json({ message: `${addresId?.namePlace} updated` })
+    });
+    res.status(200).json({ message: `${addresId?.namePlace} updated` });
   }
 
-  async deleteAddresseByUser(req: Request, res: Response) {
+  async DeleteAddresseByUser(req: Request, res: Response) {
     const { id } = req.params;
-    const addresId = await UserAdressSchema.findById(id) 
-    await UserAdressSchema.findByIdAndDelete(id)
-    res.status(200).json({ message: `${addresId?.namePlace} deleted` })
+    const addresId = await UserAdressSchema.findById(id);
+    await UserAdressSchema.findByIdAndDelete(id);
+    res.status(200).json({ message: `${addresId?.namePlace} deleted` });
   }
+  
 }

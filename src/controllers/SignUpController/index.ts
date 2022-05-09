@@ -1,12 +1,8 @@
 import { Request, Response } from "express";
 import UserModelSchema from "../../models/UserModelSchema";
 import { hash } from "bcryptjs";
+import { UserSignup } from "./types";
 
-type UserSignup = {
-  name: string;
-  email: string;
-  password: string;
-};
 
 export default class SignUpController {
   async signUp(req: Request, res: Response) {
