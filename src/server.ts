@@ -1,7 +1,8 @@
 import express, { Express } from "express";
-import routes from "./routes";
+import clientRoutes from "./client/routes";
 import dotenv from "dotenv";
 import mongoose, { ConnectOptions } from "mongoose";
+import enterpriseRoutes from "./enterprise/routes";
 
 dotenv.config();
 
@@ -17,8 +18,11 @@ mongoose
 
 const app: Express = express();
 
-app.use(express.json());
+app.use(express.json({ limit: '250mb' }));
 
-app.use(routes);
 
-app.listen(3000, () => console.warn("🚀 server run on port 3000"));
+app.use(clientRoutes, enterpriseRoutes);
+
+app.listen(process.env.port, () =>
+  console.warn(`🚀 server run on port ${process.env.port}`)
+);

@@ -18,6 +18,9 @@ const OrderModelSchema = new mongoose.Schema({
   products: { type: Array, require: true },
   totalPrice: { type: Number, required: true },
   hasDelivery: { type: Boolean, required: true, default: false },
+  accept: { type: Boolean, required: true, default: false },
+  finally: { type: Boolean, required: true, default: false },
+  canceled : {type :Boolean, required : true, default : false},
   paymentMethod: { type: String, require: true },
   payback: { type: Boolean, require: false },
   paybackFor: { type: String, required: false },
@@ -25,4 +28,4 @@ const OrderModelSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.model("Orders", OrderModelSchema);
+export default mongoose.model("orders", OrderModelSchema);
